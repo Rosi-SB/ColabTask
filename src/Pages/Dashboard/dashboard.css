@@ -1,0 +1,55 @@
+/* dashboard */
+.dashboard {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .main-panel {
+    flex: 1;
+    background-color: #f4f8fc;
+    padding: 20px;
+  }
+  
+  .conteudo {
+    margin-top: 20px;
+  }
+ 
+  
+    /***************************  */
+/* dashboardTarefas.css */
+  .dashboard-tarefas {
+    background-color: #f4f8fc;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .botao-nova {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .botao-nova:hover {
+    background-color: #0056b3;
+  }
+  
+  .progresso {
+    margin: 20px 0;
+  }
+  
+  .progresso progress {
+    width: 100%;
+    height: 16px;
+    border-radius: 5px;
+  }
+  
