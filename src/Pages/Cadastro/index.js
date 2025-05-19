@@ -68,7 +68,7 @@ export default function Cadastro() {
         {erro && <p className="erro">{erro}</p>}
 
         <div className="form-group">
-          <label htmlFor="nome">Informe o seu nome completo:</label>
+          <label htmlFor="nome">Informe o seu primeiro nome:</label>
           <CaixaTexto
             id="nome"
             text="Digite seu nome"

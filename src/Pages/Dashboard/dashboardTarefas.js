@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import FormularioTarefa from "../../Componentes/Tarefas/formularioTarefa";
 import ListaTarefas from "../../Componentes/Tarefas/listaTarefas";
-import "./dashboard.css";
-import { Titulo, Botao } from "../../Componentes/ComponentesIcones";
 import { supabase } from "../../supabaseClient";
+import "./dashboard.css";
 
 export default function DashboardTarefas() {
   const [tarefas, setTarefas] = useState([]);
@@ -13,60 +12,81 @@ export default function DashboardTarefas() {
 
   useEffect(() => {
     const obterUsuario = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (data?.user) {
-        setUsuarioId(data.user.id);
-        carregarTarefas(data.user.id);
+      const { data: userData, error } = await supabase.auth.getUser();
+      const user = userData?.user;
+
+      if (user) {
+        setUsuarioId(user.id);
+        carregarTarefas(user.id);
+      } else {
+        console.error("Usuário não autenticado", error);
       }
     };
+
     obterUsuario();
   }, []);
 
   const carregarTarefas = async (iduser) => {
     const { data, error } = await supabase
       .from("tarefas")
-      .select("*")
+      .select("*")  // Selecionando todas as colunas
       .eq("iduser", iduser)
       .order("created_at", { ascending: false });
 
-    if (!error) {
+    if (error) {
+      console.error("Erro ao carregar tarefas:", error.message);
+    } else {
       setTarefas(data);
     }
   };
 
   const salvarTarefa = async (tarefa) => {
-    if (!usuarioId) return;
+  if (!usuarioId) return;
 
-    if (tarefaEditando) {
-      await supabase
-        .from("tarefas")
-        .update({
-          titulo: tarefa.titulo,
-          descricao: tarefa.descricao,
-          prioridade: tarefa.prioridade,
-          status: tarefa.status,
-          updated_at: new Date(),
-        })
-        .eq("idtarf", tarefa.idtarf);
-    } else {
-      await supabase.from("tarefas").insert([
-        {
-          titulo: tarefa.titulo,
-          descricao: tarefa.descricao,
-          prioridade: tarefa.prioridade,
-          status: tarefa.status,
-          iduser: usuarioId,
-        },
-      ]);
+  if (tarefaEditando) {
+    // Atualizando a tarefa
+    const { error } = await supabase
+      .from("tarefas")
+      .update({
+        titulo: tarefa.titulo,
+        descricao: tarefa.descricao,
+        prioridade: tarefa.prioridade,
+        status: tarefa.status,
+        updated_at: new Date(),
+      })
+      .eq("idtarf", tarefa.idtarf); // Certifique-se de que "idtarf" é o nome correto da chave primária
+
+    if (error) {
+      console.error("Erro ao atualizar tarefa:", error.message);
     }
+  } else {
+    // Inserindo nova tarefa
+    const { error } = await supabase.from("tarefas").insert([
+      {
+        titulo: tarefa.titulo,
+        descricao: tarefa.descricao,
+        prioridade: tarefa.prioridade,
+        status: tarefa.status,
+        iduser: usuarioId,  // O iduser deve ser configurado corretamente
+      },
+    ]);
 
-    setTarefaEditando(null);
-    setMostrarFormulario(false);
-    carregarTarefas(usuarioId);
-  };
+    if (error) {
+      console.error("Erro ao inserir tarefa:", error.message);
+    }
+  }
+
+  setTarefaEditando(null);
+  setMostrarFormulario(false);
+  carregarTarefas(usuarioId);
+};
+
 
   const excluirTarefa = async (id) => {
-    await supabase.from("tarefas").delete().eq("idtarf", id);
+    const { error } = await supabase.from("tarefas").delete().eq("idtarf", id);
+    if (error) {
+      console.error("Erro ao excluir tarefa:", error.message);
+    }
     carregarTarefas(usuarioId);
   };
 
@@ -77,7 +97,10 @@ export default function DashboardTarefas() {
 
   const alternarConclusao = async (id, statusAtual) => {
     const novoStatus = statusAtual === "concluída" ? "pendente" : "concluída";
-    await supabase.from("tarefas").update({ status: novoStatus }).eq("idtarf", id);
+    const { error } = await supabase.from("tarefas").update({ status: novoStatus }).eq("idtarf", id);
+    if (error) {
+      console.error("Erro ao alternar status da tarefa:", error.message);
+    }
     carregarTarefas(usuarioId);
   };
 
@@ -89,14 +112,16 @@ export default function DashboardTarefas() {
   return (
     <div className="dashboard-tarefas">
       <div className="cabecalho">
-        <Titulo text="Minhas Tarefas" />
-        <Botao
-          text="+ Nova Tarefa"
+        <h2>Minhas Tarefas</h2>
+        <button
+          className="botao-nova"
           onClick={() => {
             setTarefaEditando(null);
             setMostrarFormulario(!mostrarFormulario);
           }}
-        />
+        >
+          + Nova Tarefa
+        </button>
       </div>
 
       <div className="progresso">
@@ -114,11 +139,8 @@ export default function DashboardTarefas() {
       <ListaTarefas
         tarefas={tarefas}
         onExcluir={excluirTarefa}
-        onToggleConclusao={(id) => {
-          const tarefa = tarefas.find((t) => t.id === id);
-          if (tarefa) alternarConclusao(id, tarefa.concluida);
-        }}
         onEditar={editarTarefa}
+        onToggleConclusao={(id, status) => alternarConclusao(id, status)}
       />
     </div>
   );

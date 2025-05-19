@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BotaoClicado } from "../ComponentesIcones";
 
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { faUserShield } from "@fortawesome/free-solid-svg-icons";
 
 export default function MenuLateral() {
   const navigate = useNavigate();
@@ -23,9 +25,9 @@ export default function MenuLateral() {
     <div className="sidebar">
       <h2>COLAB TASK</h2>
       <ul>
-        <li><Link to="/meuCadastro">Perfil</Link></li>
+        <li><Link to="/MeuCadastro"><FontAwesomeIcon icon={faUserShield} /> Perfil</Link></li>
       </ul>
-      <BotaoClicado onClick={handleLogout} aria-label="Logout">Sair</BotaoClicado>
+      <BotaoClicado onClick={handleLogout} aria-label="Logout"><FontAwesomeIcon icon={faPowerOff} /> Sair</BotaoClicado>
     </div>
   );
 }

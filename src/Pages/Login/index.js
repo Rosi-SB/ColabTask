@@ -23,7 +23,7 @@ export default function Login() {
     return;
   }
 
-  console.log("Tentando login com email:", email, "e senha:", senha); // Debug
+  //console.log("Tentando login com email:", email, "e senha:", senha); // Debug
 
   try {
     // Usando o método correto: signInWithPassword

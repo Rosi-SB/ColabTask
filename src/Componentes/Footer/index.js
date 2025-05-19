@@ -1,30 +1,57 @@
-import React from "react"
+import React from "react";
+import { Link } from "react-router-dom";
+import "./footer.css"; // Importe o arquivo CSS
+import { BotaoClicado } from "../ComponentesIcones";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 
 export default function Footer() {
-    return (
-        <div className="grid place-items-center h-60 bg-gradient-to-r from-purple-800 to-teal-400 ">
-            <p className="font-sans font-bold mb-3 text-center text-white dark:text-white">Rua Santos Nº 300, Centro, Catanduva - SP - 15801-350 <br/> catanduva@sp.senac.br - (17) 3311-4650</p>
-            <div className="grid grid-cols-2 gap-5 pb-5">
-                {/* <Link href="/fale-conosco">
-                    <button type="submit" className="font-semibold text-white">Sobre Nós</button>
-                </Link>
-                <Link href="/fale-conosco">
-                    <button type="submit" className="font-semibold text-white">Fale Conosco</button>
-                </Link> */}
-            </div>
-            <div className="grid grid-cols-5 gap-8 pb-5">
-                <a href="https://www.facebook.com/senaccatanduvasp/?locale=pt_BR" target="_blank">
-                    <img className="h-10 max-w-full" src="/facebook-app-round-white-icon.svg" alt="logo facebook"/></a>
-                <a href="https://www.instagram.com/senac.catanduva/" target="_blank">
-                    <img className="h-10 max-w-full" src="/instagram-white-icon.svg" alt="image description"/></a>
-                <a href="https://api.whatsapp.com/send?phone=551140901030&text=Ol%C3%A1%2C%20preciso%20de%20informa%C3%A7%C3%B5es" target="_blank">
-                    <img className="h-10 max-w-full" src="/whatsapp-white-icon.svg" alt="image description"/></a>
-                <a href="https://www.linkedin.com/school/senacsaopaulo/posts/?feedView=all" target="_blank">
-                    <img className="h-10 max-w-full" src="/linkedin-app-white-icon.svg" alt="image description"/></a>
-                <a href="https://www.sp.senac.br/senac-catanduva" target="_blank">
-                    <img className="h-10 max-w-full" src="/senac-site-logo.svg" alt="logo-site-senac"/></a>
-            </div>
-        </div>
-    )
-  }
+  return (
+    <div className="footer">
+      <div className="contact-info">
+        <p>Projeto Integrador em Computação III - PJI310 - Turma 001</p>
+        <small>DRP11-PJI310-SALA-001GRUPO-006</small>
+      </div>
+
+
+      <div className="social-icons">        
+        <Link
+          to="/SobreNos"
+          target="_blank"
+          children="Visite nossa biografia"
+          aria-label="Sobre nós"
+        >
+         <FontAwesomeIcon icon={faAddressCard} size="3x" /> Sobre Nós
+        </Link>
+        <a
+          href="https://github.com/Rosi-SB/ColabTask"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Visite o repositório no GitHub"
+          aria-label="Repositório GitHub Rosi-SB"
+        >
+          <FontAwesomeIcon icon={faGithub} size="3x" /> GitHub
+        </a>
+        <a
+          href="mailto:proj.int.univesp@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Dúvidas? Entre em contato conosco"
+          aria-label="Caixa de Mensagem"
+        >
+          <FontAwesomeIcon icon={faEnvelope} size="3x" /> Caixa de Mensagem
+        </a>
+      </div>
+
+      <div className="copyright">
+        <p>
+          &copy;{new Date().getFullYear()} ColabTask. Todos os direitos
+          reservados.
+        </p>
+      </div>
+    </div>
+  );
+}

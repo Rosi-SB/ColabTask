@@ -1,0 +1,22 @@
+.logo-container {
+  margin-bottom: 20px; /* Espaçamento entre logo e o menu */
+}
+.titulo{
+  background-color: aliceblue;
+}
+.logo {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 120px; /* Limita o tamanho da logo */
+  height: auto;
+}
+.header {
+  background: linear-gradient(to right, #6a1b9a, #004d40); /* Gradiente de roxo para verde */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: right; /* Centraliza os itens no eixo horizontal */
+  justify-content: right; /* Centraliza os itens no eixo vertical */
+  text-align: right;
+}

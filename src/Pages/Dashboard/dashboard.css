@@ -1,19 +1,41 @@
 /* dashboard */
+/* A estrutura geral do dashboard, com flexbox e 100vh */
 .dashboard {
-    display: flex;
-    height: 100vh;
-  }
-  
-  .main-panel {
-    flex: 1;
-    background-color: #f4f8fc;
-    padding: 20px;
-  }
-  
-  .conteudo {
-    margin-top: 20px;
-  }
- 
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Garante que a tela ocupe toda a altura */
+}
+
+/* A área lateral que contém o MenuLateral */
+.menu-lateral {
+  width: 250px; /* Defina a largura do MenuLateral conforme necessário */
+  background-color: #f4f8fc;
+  position: fixed;
+  height: 100%;
+}
+
+/* A área principal onde o conteúdo é exibido */
+.main-panel {
+  overflow: auto;
+  flex: 1; /* Isso faz com que a .main-panel ocupe o espaço restante */
+  background-color: #f4f8fc;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 250px; /* Faz o painel principal começar após o menu lateral */
+}
+
+/* O conteúdo da página que pode ser expandido conforme necessário */
+.conteudo {
+  margin-top: 20px;
+  flex-grow: 1; /* Faz o conteúdo crescer para preencher o espaço disponível */
+  overflow: auto; /* Caso o conteúdo ultrapasse a altura, ele será rolável */
+}
+
+/* Para o footer ficar sempre na parte inferior */
+footer {
+  margin-top: auto; /* Faz o footer "empurrar" para baixo */
+}
   
     /***************************  */
 /* dashboardTarefas.css */

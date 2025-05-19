@@ -3,6 +3,8 @@ import Dashboard from './Pages/Dashboard/index';
 import DashboardTarefas from './Pages/Dashboard/dashboardTarefas';
 import Login from './Pages/Login';
 import Cadastro from "./Pages/Cadastro";
+import MeuCadastro from "./Pages/MeuCadastro";
+import SobreNos from "./Pages/Sobre";
 import RotaProtegida from './Pages/Login/rotaProtegida';
 
 export default function App() {
@@ -19,6 +21,8 @@ export default function App() {
             </RotaProtegida>
           }
         />
+        <Route path="/MeuCadastro" element={<MeuCadastro />} />
+        <Route path="/sobreNos" element={<SobreNos />} />
       </Routes>
     </Router>
   );
