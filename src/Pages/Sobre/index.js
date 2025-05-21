@@ -3,6 +3,7 @@ import { Titulo } from "../../Componentes/ComponentesIcones";
 import Header from "../../Componentes/Header";
 import Footer from "../../Componentes/Footer";
 import ro from "../../assets/ro.jpg"
+import Nelita from "../../assets/Nelita.jpg"
 import "./sobreNos.css"; 
 
 export default function SobreNos() {
@@ -20,7 +21,7 @@ export default function SobreNos() {
                     </textarea>
                 </div>
                 <div className="team-member">
-                    <img src="imagem2.jpg" alt="Nelita" className="team-image" />
+                    <img src={Nelita} alt="Nelita" className="team-image" />
                     <textarea className="team-info" readOnly>
                         Nelita |
                         Polo: Catanduva-SP |

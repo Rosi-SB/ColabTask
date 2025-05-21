@@ -99,29 +99,39 @@ export default function MeuCadastro() {
   };
 
   const handleDeleteAccount = async () => {
-    const confirmDelete = window.confirm("Tem certeza que deseja excluir sua conta?");
-    if (confirmDelete) {
-      const { data: { user }, error } = await supabase.auth.getUser();
+  const confirmDelete = window.confirm("Tem certeza que deseja excluir sua conta?");
+  if (!confirmDelete) return;
 
-      if (error || !user) {
-        setErro("Erro ao buscar usuário.");
-        return;
-      }
+  const { data: { user }, error } = await supabase.auth.getUser();
+  if (error || !user) {
+    setErro("Erro ao buscar usuário.");
+    return;
+  }
 
-      try {
-        const { error: deleteError } = await supabase.auth.api.deleteUser(user.id);
+  try {
+    // 1. Apaga os dados do usuário na tabela personalizada
+    const { error: deleteError } = await supabase
+      .from("usuarios")
+      .delete()
+      .eq("iduser", user.id);
 
-        if (deleteError) {
-          setErro("Erro ao excluir a conta.");
-        } else {
-          navigate("/"); // Após excluir, redireciona para a tela de login
-        }
-      } catch (err) {
-        console.error("Erro ao excluir a conta:", err);
-        setErro("Erro inesperado ao excluir a conta.");
-      }
+    if (deleteError) {
+      console.error("Erro ao excluir dados do usuário:", deleteError);
+      setErro("Erro ao excluir dados do usuário.");
+      return;
     }
-  };
+
+    // 2. Faz logout do Supabase
+    await supabase.auth.signOut();
+
+    // 3. Redireciona para tela de login
+    navigate("/");
+  } catch (err) {
+    console.error("Erro inesperado:", err);
+    setErro("Erro inesperado ao excluir conta.");
+  }
+};
+
 
   return (
    <div>
