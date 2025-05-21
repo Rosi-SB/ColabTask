@@ -50,6 +50,7 @@ export default function Cadastro() {
             console.error("Erro ao inserir no banco:", insertError);
             setErro("Erro ao cadastrar usuário no banco de dados.");
           } else {
+            alert("Verifique sua caixa de email, para confirmar seu cadastro!");
             navigate("/"); // Redireciona para a tela inicial
           }
         } catch (err) {
