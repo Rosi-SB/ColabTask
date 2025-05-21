@@ -3,77 +3,129 @@
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
-  }
-  
-  .formulario-tarefa input {
+    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha em telas pequenas */
+}
+
+.formulario-tarefa input {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
-  
-  .formulario-tarefa button {
+    min-width: 200px; /* Garante que o input não fique muito pequeno */
+}
+
+.formulario-tarefa button {
     background-color: #28a745;
     color: white;
     border: none;
     padding: 10px 14px;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .formulario-tarefa button:hover {
+}
+
+.formulario-tarefa button:hover {
     background-color: #218838;
-  }
-  
+}
+
+@media (max-width: 600px) {
+    .formulario-tarefa {
+        flex-direction: column; /* Empilha os elementos verticalmente em telas pequenas */
+        align-items: stretch;
+    }
+
+    .formulario-tarefa input,
+    .formulario-tarefa button {
+        width: 100%; /* Garante que os itens ocupem 100% da largura disponível */
+    }
+}
+
 
   /***************************  */
 /* ListaTarefas.css */
-  .lista-tarefas {
+.lista-tarefas {
     margin-top: 10px;
-  }
-  
-  .lista-tarefas p {
+}
+
+.lista-tarefas p {
     color: #555;
-  }
+    margin: 5px 0;
+}
+
+@media (max-width: 600px) {
+    .lista-tarefas {
+        padding: 10px; /* Adiciona um pouco de padding nas laterais para melhorar a leitura */
+    }
+
+    .lista-tarefas p {
+        font-size: 14px; /* Diminui um pouco o tamanho da fonte em telas menores */
+    }
+}
+
   
   /***************************  */
-  /* ComponenteTarefa.css */
-  .tarefa {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fff;
-  margin-bottom: 10px;
+/* ComponenteTarefa.css */
+.tarefa {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    flex-wrap: wrap; /* Permite que o conteúdo quebre em telas menores */
 }
 
 .tarefa.concluida {
-  background-color: #e0ffe0;
+    background-color: #e0ffe0;
 }
 
 .tarefa .info {
-  flex: 1;
+    flex: 1;
+    min-width: 150px; /* Garante que a informação da tarefa não fique muito pequena */
 }
 
 .tarefa .acoes {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    flex-wrap: wrap; /* Permite que os botões se ajustem em telas menores */
 }
 
 .tarefa button {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px 10px;
 }
 
 .tarefa .editar:hover {
-  color: #007bff;
+    color: #007bff;
 }
 
 .tarefa .excluir:hover {
-  color: #dc3545;
+    color: #dc3545;
+}
+
+@media (max-width: 600px) {
+    .tarefa {
+        flex-direction: column; /* Empilha os itens da tarefa verticalmente */
+        align-items: flex-start;
+    }
+
+    .tarefa .info {
+        margin-bottom: 10px;
+    }
+
+    .tarefa .acoes {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .tarefa button {
+        width: 100%; /* Garante que os botões ocupem 100% da largura */
+        margin-bottom: 5px;
+    }
 }

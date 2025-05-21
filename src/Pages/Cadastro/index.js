@@ -117,7 +117,7 @@ export default function Cadastro() {
 
         <div className="botoes-cadastro">
           <Botao text="Cadastrar" type="submit" />
-          <Link to="/">
+          <Link to="/" className="sublinhado">
             <BotaoClicado>Voltar à tela de Login</BotaoClicado>
           </Link>
         </div>

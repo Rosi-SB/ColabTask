@@ -1,23 +1,66 @@
+/* Menu Lateral */
 .sidebar {
-    width: 220px;
-    background-color: #1c1e21;
-    color: white;
-    padding: 20px;
-    height: 100vh;
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-100%); /* Inicialmente, o menu está escondido */
+}
+
+/* Quando o menu estiver aberto, ele se move para a posição inicial */
+.sidebar.open {
+  transform: translateX(0); /* O menu se move para a posição visível */
+}
+
+.sidebar-toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px; /* Mudando a posição para mais visível */
+  z-index: 1000; /* Garante que o botão fique acima do menu lateral */
+}
+
+/* Responsividade - Para telas grandes (desktop) */
+@media (min-width: 769px) {
+  .sidebar {
+    transform: translateX(0); /* O menu lateral está visível */
+    display: block; /* Exibe o menu lateral */
   }
-  
-  .sidebar h2 {
-    margin-bottom: 30px;
-    font-size: 20px;
+
+  .sidebar-toggle-btn {
+    display: none; /* Esconde o botão de hambúrguer em telas grandes */
   }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
+
+  .main-panel {
+    margin-left: 250px; /* A área principal é deslocada para a direita */
   }
-  
-  .sidebar li {
-    margin-bottom: 20px;
-    cursor: pointer;
+}
+
+/* Responsividade - Para telas pequenas (até 768px) */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%); /* Esconde o menu lateral por padrão */
+    display: block; /* O menu lateral é exibido, mas oculto até ser ativado */
   }
-  
+
+  .sidebar.open {
+    transform: translateX(0); /* O menu é exibido quando "open" é ativado */
+  }
+
+  .sidebar-toggle-btn {
+    display: block; /* O botão de hambúrguer fica visível em telas pequenas */
+  }
+
+  .main-panel {
+    margin-left: 0; /* Sem margem para o painel principal */
+  }
+}

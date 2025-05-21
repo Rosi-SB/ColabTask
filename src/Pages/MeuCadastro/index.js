@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../supabaseClient";
 import { Titulo, BotaoClicado, CaixaTexto } from "../../Componentes/ComponentesIcones";
+import Header from "../../Componentes/Header"
 import Footer from "../../Componentes/Footer"
 import "./meuCadastro.css";
 
@@ -9,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserSlash } from "@fortawesome/free-solid-svg-icons";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-
 
 export default function MeuCadastro() {
   const [nome, setNome] = useState("");
@@ -125,6 +125,7 @@ export default function MeuCadastro() {
 
   return (
    <div>
+    <Header />
        <div className="cadastro-container">
       <Titulo text="Atualizar Conta" />
 
@@ -181,7 +182,7 @@ export default function MeuCadastro() {
 
         <div className="botoes-cadastro">
           <BotaoClicado type="submit"><FontAwesomeIcon icon={faUserPen}/> Atualizar</BotaoClicado>
-          <Link to="/dashboard">
+          <Link to="/dashboard" className="sublinhado">
             <BotaoClicado><FontAwesomeIcon icon={faArrowLeft} /> Voltar à tela Inicial</BotaoClicado>
           </Link>
           

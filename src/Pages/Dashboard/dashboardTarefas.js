@@ -8,29 +8,18 @@ export default function DashboardTarefas() {
   const [tarefas, setTarefas] = useState([]);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [tarefaEditando, setTarefaEditando] = useState(null);
-  const [usuarioId, setUsuarioId] = useState(null);
+  const [erroSalvar, setErroSalvar] = useState(null); // Novo estado para erro de salvar
 
-  useEffect(() => {
-    const obterUsuario = async () => {
-      const { data: userData, error } = await supabase.auth.getUser();
-      const user = userData?.user;
+  const carregarTarefas = async () => {
+    const { data: userData } = await supabase.auth.getUser();
+    const user = userData?.user;
 
-      if (user) {
-        setUsuarioId(user.id);
-        carregarTarefas(user.id);
-      } else {
-        console.error("Usuário não autenticado", error);
-      }
-    };
+    if (!user) return;
 
-    obterUsuario();
-  }, []);
-
-  const carregarTarefas = async (iduser) => {
     const { data, error } = await supabase
       .from("tarefas")
-      .select("*")  // Selecionando todas as colunas
-      .eq("iduser", iduser)
+      .select("*")
+      .eq("iduser", user.id)
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -41,53 +30,50 @@ export default function DashboardTarefas() {
   };
 
   const salvarTarefa = async (tarefa) => {
-  if (!usuarioId) return;
+    const { data: userData } = await supabase.auth.getUser();
+    const user = userData?.user;
+    if (!user) return;
 
-  if (tarefaEditando) {
-    // Atualizando a tarefa
-    const { error } = await supabase
-      .from("tarefas")
-      .update({
-        titulo: tarefa.titulo,
-        descricao: tarefa.descricao,
-        prioridade: tarefa.prioridade,
-        status: tarefa.status,
-        updated_at: new Date(),
-      })
-      .eq("idtarf", tarefa.idtarf); // Certifique-se de que "idtarf" é o nome correto da chave primária
+    const prioridade = tarefa.prioridade.replace(/[áàãâä]/g, 'a').toLowerCase();
 
-    if (error) {
-      console.error("Erro ao atualizar tarefa:", error.message);
+    if (tarefaEditando) {
+      await supabase
+        .from("tarefas")
+        .update({
+          titulo: tarefa.titulo,
+          descricao: tarefa.descricao,
+          prioridade: prioridade,
+          status: tarefa.status,
+          updated_at: new Date(),
+        })
+        .eq("idtarf", tarefa.idtarf);
+    } else {
+      const { error } = await supabase.from("tarefas").insert([
+        {
+          titulo: tarefa.titulo,
+          descricao: tarefa.descricao,
+          prioridade: tarefa.prioridade,
+          status: tarefa.status,
+          iduser: user.id,
+        },
+      ]);
+
+      if (error) {
+        console.error("Erro ao inserir tarefa:", error.message);
+        setErroSalvar("Ocorreu um erro ao salvar a tarefa. Tente novamente.");
+        return;
+      }
     }
-  } else {
-    // Inserindo nova tarefa
-    const { error } = await supabase.from("tarefas").insert([
-      {
-        titulo: tarefa.titulo,
-        descricao: tarefa.descricao,
-        prioridade: tarefa.prioridade,
-        status: tarefa.status,
-        iduser: usuarioId,  // O iduser deve ser configurado corretamente
-      },
-    ]);
 
-    if (error) {
-      console.error("Erro ao inserir tarefa:", error.message);
-    }
-  }
-
-  setTarefaEditando(null);
-  setMostrarFormulario(false);
-  carregarTarefas(usuarioId);
-};
-
+    setErroSalvar(null); // Limpa o erro se houver sucesso
+    setTarefaEditando(null);
+    setMostrarFormulario(false);
+    carregarTarefas();
+  };
 
   const excluirTarefa = async (id) => {
-    const { error } = await supabase.from("tarefas").delete().eq("idtarf", id);
-    if (error) {
-      console.error("Erro ao excluir tarefa:", error.message);
-    }
-    carregarTarefas(usuarioId);
+    await supabase.from("tarefas").delete().eq("idtarf", id);
+    carregarTarefas();
   };
 
   const editarTarefa = (tarefa) => {
@@ -97,17 +83,18 @@ export default function DashboardTarefas() {
 
   const alternarConclusao = async (id, statusAtual) => {
     const novoStatus = statusAtual === "concluída" ? "pendente" : "concluída";
-    const { error } = await supabase.from("tarefas").update({ status: novoStatus }).eq("idtarf", id);
-    if (error) {
-      console.error("Erro ao alternar status da tarefa:", error.message);
-    }
-    carregarTarefas(usuarioId);
+    await supabase.from("tarefas").update({ status: novoStatus }).eq("idtarf", id);
+    carregarTarefas();
   };
 
   const progresso =
     tarefas.length > 0
       ? (tarefas.filter((t) => t.status === "concluída").length / tarefas.length) * 100
       : 0;
+
+  useEffect(() => {
+    carregarTarefas();
+  }, []);
 
   return (
     <div className="dashboard-tarefas">
@@ -128,6 +115,8 @@ export default function DashboardTarefas() {
         <label>Progresso do Projeto</label>
         <progress value={progresso} max="100" />
       </div>
+
+      {erroSalvar && <div className="erro">{erroSalvar}</div>} {/* Exibe o erro, se houver */}
 
       {mostrarFormulario && (
         <FormularioTarefa

@@ -6,14 +6,6 @@
   height: 100vh; /* Garante que a tela ocupe toda a altura */
 }
 
-/* A área lateral que contém o MenuLateral */
-.menu-lateral {
-  width: 250px; /* Defina a largura do MenuLateral conforme necessário */
-  background-color: #f4f8fc;
-  position: fixed;
-  height: 100%;
-}
-
 /* A área principal onde o conteúdo é exibido */
 .main-panel {
   overflow: auto;
@@ -23,6 +15,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 250px; /* Faz o painel principal começar após o menu lateral */
+  transition: margin-left 0.3s ease; /* Adiciona transição suave */
 }
 
 /* O conteúdo da página que pode ser expandido conforme necessário */
@@ -36,42 +29,112 @@
 footer {
   margin-top: auto; /* Faz o footer "empurrar" para baixo */
 }
-  
-    /***************************  */
-/* dashboardTarefas.css */
-  .dashboard-tarefas {
-    background-color: #f4f8fc;
-    padding: 20px;
-    border-radius: 8px;
+
+/* Responsividade - Menus e conteúdo em telas pequenas */
+@media (max-width: 768px) {
+  .main-panel {
+    margin-left: 0; /* Remove a margem do menu lateral */
+    padding: 10px; /* Ajuste de padding para telas menores */
   }
-  
+
+  .dashboard {
+    flex-direction: column; /* Muda a direção do flex em telas menores */
+  }
+
+  .menu-lateral {
+    display: none; /* Esconde o menu lateral em telas menores */
+  }
+
   .cabecalho {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* Alinha itens verticalmente no cabeçalho */
+    align-items: flex-start;
   }
-  
+
   .botao-nova {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+    width: 100%; /* Botão ocupa a largura total em telas pequenas */
+    padding: 12px; /* Aumenta o padding para telas menores */
   }
-  
-  .botao-nova:hover {
-    background-color: #0056b3;
+
+  footer {
+    margin-top: 20px; /* Ajusta o espaçamento do footer em telas pequenas */
   }
-  
-  .progresso {
-    margin: 20px 0;
+}
+
+/* Responsividade - Para dispositivos muito pequenos, como smartphones */
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 10px; /* Ajusta o padding da dashboard em dispositivos muito pequenos */
   }
-  
+
+  .cabecalho {
+    flex-direction: column; /* Alinha os itens de forma vertical */
+    text-align: center; /* Centraliza o texto */
+  }
+
+  .botao-nova {
+    width: 100%; /* Botão ocupa a largura total em telas muito pequenas */
+  }
+
   .progresso progress {
-    width: 100%;
-    height: 16px;
-    border-radius: 5px;
+    height: 12px; /* Diminui a altura do progresso em telas pequenas */
   }
-  
+}
+
+/***************************  */
+/* dashboardTarefas.css */
+.dashboard-tarefas {
+  background-color: #f4f8fc;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.botao-nova {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.botao-nova:hover {
+  background-color: #0056b3;
+}
+
+.progresso {
+  margin: 20px 0;
+}
+
+.progresso progress {
+  width: 100%;
+  height: 16px;
+  border-radius: 5px;
+}
+
+/* Responsividade para o painel de tarefas */
+@media (max-width: 768px) {
+  .dashboard-tarefas {
+    padding: 15px; /* Menor padding em telas menores */
+  }
+
+  .cabecalho {
+    flex-direction: column; /* Alinha o cabeçalho verticalmente */
+    align-items: flex-start;
+  }
+
+  .botao-nova {
+    width: 100%; /* Botão ocupa a largura total em telas pequenas */
+    padding: 12px; /* Aumenta o padding para telas pequenas */
+  }
+
+  .progresso progress {
+    height: 14px; /* Ajusta a altura do progresso para telas menores */
+  }
+}

@@ -45,6 +45,8 @@
   text-align: left;
   font-weight: bold;
   margin-top: 10px;
+  white-space: pre-wrap; /* Garante que as quebras de linha sejam preservadas */
+  word-wrap: break-word; /* Quebra as palavras longas, se necessário */
 }
 
 .team-info:focus {

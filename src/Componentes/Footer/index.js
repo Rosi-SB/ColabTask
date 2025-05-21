@@ -11,12 +11,6 @@ import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
 export default function Footer() {
   return (
     <div className="footer">
-      <div className="contact-info">
-        <p>Projeto Integrador em Computação III - PJI310 - Turma 001</p>
-        <small>DRP11-PJI310-SALA-001GRUPO-006</small>
-      </div>
-
-
       <div className="social-icons">        
         <Link
           to="/SobreNos"
@@ -24,7 +18,7 @@ export default function Footer() {
           children="Visite nossa biografia"
           aria-label="Sobre nós"
         >
-         <FontAwesomeIcon icon={faAddressCard} size="3x" /> Sobre Nós
+         <FontAwesomeIcon icon={faAddressCard} size="2x" /> Sobre Nós
         </Link>
         <a
           href="https://github.com/Rosi-SB/ColabTask"
@@ -33,7 +27,7 @@ export default function Footer() {
           title="Visite o repositório no GitHub"
           aria-label="Repositório GitHub Rosi-SB"
         >
-          <FontAwesomeIcon icon={faGithub} size="3x" /> GitHub
+          <FontAwesomeIcon icon={faGithub} size="2x" /> GitHub
         </a>
         <a
           href="mailto:proj.int.univesp@gmail.com"
@@ -42,8 +36,13 @@ export default function Footer() {
           title="Dúvidas? Entre em contato conosco"
           aria-label="Caixa de Mensagem"
         >
-          <FontAwesomeIcon icon={faEnvelope} size="3x" /> Caixa de Mensagem
+          <FontAwesomeIcon icon={faEnvelope} size="2x" /> Caixa de Mensagem
         </a>
+      </div>
+
+      <div className="contact-info">
+        <p>Projeto Integrador em Computação III - PJI310 - Turma 001</p>
+        <small>DRP11-PJI310-SALA-001GRUPO-006</small>
       </div>
 
       <div className="copyright">
