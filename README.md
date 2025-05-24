@@ -1,7 +1,10 @@
+# Projeto Integrador em Computação III - PJI310 - Turma 001
+## DRP11-PJI310-SALA-001GRUPO-006
 
 # ✅ Gerenciador de Tarefas com Supabase
 
 Sistema de gerenciamento de tarefas desenvolvido em **React**, com autenticação via **Supabase**, voltado para organização de atividades e gestão pessoal.
+
 
 ## 🧩 Funcionalidades
 
@@ -26,8 +29,7 @@ Sistema de gerenciamento de tarefas desenvolvido em **React**, com autenticaçã
 
 ## 🚀 Deploy
 
-🔗 Projeto online: [https://nome-do-projeto.up.railway.app](https://nome-do-projeto.up.railway.app)  
-_(Substitua pela URL gerada no Railway)_
+🔗 Projeto online: [https://colabtask-production.up.railway.app/](https://colabtask-production.up.railway.app/)
 
 ## 📷 Capturas de tela (opcional)
 
@@ -86,10 +88,10 @@ A aplicação abrirá em `http://localhost:3000`
 
 ## 👥 Integrantes do Grupo
 
-- **Simoni**
-- **Nelita**
-- **Rosicleidi**
-- **Deusliane**
+- **Simoni | Polo: Nova Granada-SP | Curso: Bacharelado em Tecnologia da Informação**
+- **Nelita | Polo: Catanduva-SP | Curso: Ciência de Dados**
+- **Rosicleidi | Polo: Palmares Paulista-SP | Curso: Bacharelado em Tecnologia da Informação**
+- **Deusliane | Polo: Paulo de Faria-SP | Curso: Engenharia da Computação**
 
 Trabalho desenvolvido para apresentação na **UNIVESP** (Universidade Virtual do Estado de São Paulo), como parte do **Projeto Integrador**.
 
