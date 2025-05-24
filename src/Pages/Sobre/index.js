@@ -4,6 +4,7 @@ import Header from "../../Componentes/Header";
 import Footer from "../../Componentes/Footer";
 import ro from "../../assets/ro.jpg"
 import Nelita from "../../assets/Nelita.jpg"
+import Simoni2 from "../../assets/Simoni2.jpg"
 import "./sobreNos.css"; 
 
 export default function SobreNos() {
@@ -37,7 +38,7 @@ export default function SobreNos() {
                     </textarea>
                 </div>
                 <div className="team-member">
-                    <img src="imagem4.jpg" alt="Simoni" className="team-image" />
+                    <img src={Simoni2} alt="Simoni" className="team-image" />
                     <textarea className="team-info" readOnly>
                         Simoni | 
                         Polo: Nova Granada-SP |
